@@ -41,25 +41,4 @@ public class InstrumentQuoteDTO {
         return instrumentQuotes.stream().map(InstrumentQuoteDTO::new).collect(Collectors.toList());
     }
 
-    public static double calculaSaldo(double precoDia, double quantidade) {
-        double resultado;
-        String saldo;
-
-        resultado = quantidade * precoDia;
-        saldo = new DecimalFormat("#.##").format(resultado);
-        System.out.println("Valor formatado: " + saldo);
-
-        return resultado;
-    }
-
-    public static double calculaRedimentoAcoes(double valorTotal, double precoDia, double quantidade) {
-        double rendimentoAcoes = 0;
-        double saldo = calculaSaldo(precoDia, quantidade);
-
-        rendimentoAcoes = (saldo - valorTotal) / valorTotal * 100;
-        System.out.println("Valor rendimento: " + rendimentoAcoes);
-        System.out.println("Saldo: " + saldo);
-        
-        return Double.parseDouble(new DecimalFormat("#.##").format(rendimentoAcoes).replace(",","."));
-    }
 }

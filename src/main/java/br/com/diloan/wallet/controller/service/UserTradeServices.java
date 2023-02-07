@@ -36,13 +36,12 @@ public class UserTradeServices {
             userTradesNew = detalharInstrument(data1, item.getInstrument());
             quantidadeAcoes = item.getTipo_operacao().equalsIgnoreCase("C") ? quantidadeAcoes + item.getQuantidade() : quantidadeAcoes - item.getQuantidade();
             saldo = userTradesNew.getPrice() * quantidadeAcoes;
-            rendimento = InstrumentQuoteDTO.calculaRedimentoAcoes(item.getValor_total(), userTradesNew.getPrice(), quantidadeAcoes);
+            rendimento = calculaRedimentoAcoes(item.getValor_total(), userTradesNew.getPrice(), quantidadeAcoes);
             item.setQuantidade(quantidadeAcoes);
             item.setSaldo(Double.parseDouble(new DecimalFormat("#.##").format(saldo).replace(",",".")));
             item.setRendimento(rendimento);
 
         }
-
 
         return UserTradeDTO.converter(userTrades);
 
@@ -64,6 +63,28 @@ public class UserTradeServices {
         }
 
         throw new IllegalArgumentException("Não foi encontrada nenhuma acao com id: " + dataInicio);
+    }
+
+    public double calculaRedimentoAcoes(double valorTotal, double precoDia, double quantidade) {
+        double rendimentoAcoes = 0;
+        double saldo = calculaSaldo(precoDia, quantidade);
+
+        rendimentoAcoes = (saldo - valorTotal) / valorTotal * 100;
+        System.out.println("Valor rendimento: " + rendimentoAcoes);
+        System.out.println("Saldo: " + saldo);
+
+        return Double.parseDouble(new DecimalFormat("#.##").format(rendimentoAcoes).replace(",","."));
+    }
+
+    public double calculaSaldo(double precoDia, double quantidade) {
+        double resultado;
+        String saldo;
+
+        resultado = quantidade * precoDia;
+        saldo = new DecimalFormat("#.##").format(resultado);
+        System.out.println("Valor formatado: " + saldo);
+
+        return resultado;
     }
 
 }
