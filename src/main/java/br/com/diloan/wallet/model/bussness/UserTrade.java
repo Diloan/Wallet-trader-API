@@ -10,7 +10,7 @@ public class UserTrade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate data;
-    private String tipo_operacao;
+    private String tipoOperacao;
     private String mercado;
     private String prazo;
     private String instrument;
@@ -27,21 +27,6 @@ public class UserTrade {
     public UserTrade() {
     }
 
-    public UserTrade(Long id, LocalDate data, String tipoOperacao, String mercado, String prazo, String instrument, String especificacao, double quantidade, double preco, double valorTotal, double saldo, double rendimento) {
-        this.id = id;
-        this.data = data;
-        this.tipo_operacao = tipoOperacao;
-        this.mercado = mercado;
-        this.prazo = prazo;
-        this.instrument = instrument;
-        this.especificacao = especificacao;
-        this.quantidade = quantidade;
-        this.preco = preco;
-        this.valor_total = valorTotal;
-        this.saldo = saldo;
-        this.rendimento = rendimento;
-    }
-
     public Long getId() {
         return id;
     }
@@ -51,7 +36,7 @@ public class UserTrade {
     }
 
     public String getTipo_operacao() {
-        return tipo_operacao;
+        return tipoOperacao;
     }
 
     public String getMercado() {

@@ -17,14 +17,13 @@ public class InstrumentQuoteServices {
     @Autowired
     private InstrumentQuoteRepository instrumentQuoteRepository;
 
-    public List<InstrumentQuoteDTO>
-    listarInstruments(LocalDate data1, LocalDate data2) {
+    public List<InstrumentQuoteDTO> listInstruments(LocalDate data1, LocalDate data2) {
         List<InstrumentQuote> instrumentQuotes;
         instrumentQuotes = instrumentQuoteRepository.findByDateBetween(data1, data2);
         return InstrumentQuoteDTO.converter(instrumentQuotes);
     }
 
-    public InstrumentQuoteDTO detalharInstrument(@PathVariable Long id) {
+    public InstrumentQuoteDTO getInstrumentDetails(@PathVariable Long id) {
         Optional<InstrumentQuote> instrumentQuotes = instrumentQuoteRepository.findById(id);
         if (instrumentQuotes.isPresent()) {
             return new InstrumentQuoteDTO(instrumentQuotes.get());

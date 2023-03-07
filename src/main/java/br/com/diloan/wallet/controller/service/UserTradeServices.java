@@ -24,20 +24,17 @@ public class UserTradeServices {
     @Autowired
     private InstrumentQuoteRepository instrumentQuoteRepository;
 
-    public List<UserTradeDTO> listarAcoes(LocalDate data1, LocalDate data2) {
+    public List<UserTradeDTO> listQuotes(LocalDate startDate, LocalDate endDate) {
 
-        InstrumentQuoteDTO userTradesNew;
-        double quantidadeAcoes = 0;
-        double saldo;
-        double rendimento;
-        List<UserTrade> userTrades = userTradeRepository.findDistinctByDataBetween(data1, data2);
+        List<UserTrade> userTrades = userTradeRepository.findDistinctByDataBetween(startDate, endDate);
 
+        double quoteQuantity = 0.0;
         for (UserTrade item : userTrades) {
-            userTradesNew = detalharInstrument(data1, item.getInstrument());
-            quantidadeAcoes = item.getTipo_operacao().equalsIgnoreCase("C") ? quantidadeAcoes + item.getQuantidade() : quantidadeAcoes - item.getQuantidade();
-            saldo = userTradesNew.getPrice() * quantidadeAcoes;
-            rendimento = calculaRedimentoAcoes(item.getValor_total(), userTradesNew.getPrice(), quantidadeAcoes);
-            item.setQuantidade(quantidadeAcoes);
+            InstrumentQuoteDTO instrumentQuoteDTO = getQuotesDetails(startDate, item.getInstrument());
+            quoteQuantity = item.getTipo_operacao().equalsIgnoreCase("C") ? quoteQuantity + item.getQuantidade() : quoteQuantity - item.getQuantidade();
+            double saldo = instrumentQuoteDTO.getPrice() * quoteQuantity;
+            double rendimento = calculatesStockYield(item.getValor_total(), instrumentQuoteDTO.getPrice(), quoteQuantity);
+            item.setQuantidade(quoteQuantity);
             item.setSaldo(Double.parseDouble(new DecimalFormat("#.##").format(saldo).replace(",",".")));
             item.setRendimento(rendimento);
 
@@ -47,44 +44,44 @@ public class UserTradeServices {
 
     }
 
-    public UserTradeDTO detalharAcao(@PathVariable Long id) {
+    public UserTradeDTO getQuotes(@PathVariable Long id) {
         Optional<UserTrade> trade = userTradeRepository.findById(id);
         if (trade.isPresent()) {
             return new UserTradeDTO(trade.get());
         }
 
-        throw new IllegalArgumentException("Não foi encontrada nenhuma acao com id: " + id);
+        throw new IllegalArgumentException("Not found a quote with id: " + id);
     }
 
-    public InstrumentQuoteDTO detalharInstrument(LocalDate dataInicio, String simbol) {
-        Optional<InstrumentQuote> instrumentQuote = instrumentQuoteRepository.findByPeriodAndInstrument(dataInicio, simbol);
+    public InstrumentQuoteDTO getQuotesDetails(LocalDate startDate, String simbol) {
+        Optional<InstrumentQuote> instrumentQuote = instrumentQuoteRepository.findByPeriodAndInstrument(startDate, simbol);
         if (instrumentQuote.isPresent()) {
             return new InstrumentQuoteDTO(instrumentQuote.get());
         }
 
-        throw new IllegalArgumentException("Não foi encontrada nenhuma acao com id: " + dataInicio);
+        throw new IllegalArgumentException("Não foi encontrada nenhuma acao com id: " + startDate);
     }
 
-    public double calculaRedimentoAcoes(double valorTotal, double precoDia, double quantidade) {
-        double rendimentoAcoes = 0;
-        double saldo = calculaSaldo(precoDia, quantidade);
+    public double calculatesStockYield(double amount, double priceDay, double quantity) {
+        double stockYield;
+        double balance = calculateBalance(priceDay, quantity);
 
-        rendimentoAcoes = (saldo - valorTotal) / valorTotal * 100;
-        System.out.println("Valor rendimento: " + rendimentoAcoes);
-        System.out.println("Saldo: " + saldo);
+        stockYield = (balance - amount) / amount * 100;
+        System.out.println("Valor rendimento: " + stockYield);
+        System.out.println("Saldo: " + balance);
 
-        return Double.parseDouble(new DecimalFormat("#.##").format(rendimentoAcoes).replace(",","."));
+        return Double.parseDouble(new DecimalFormat("#.##").format(stockYield).replace(",","."));
     }
 
-    public double calculaSaldo(double precoDia, double quantidade) {
-        double resultado;
-        String saldo;
+    public double calculateBalance(double priceDay, double quantity) {
+        double result;
+        String balance;
 
-        resultado = quantidade * precoDia;
-        saldo = new DecimalFormat("#.##").format(resultado);
-        System.out.println("Valor formatado: " + saldo);
+        result = quantity * priceDay;
+        balance = new DecimalFormat("#.##").format(result);
+        System.out.println("Valor formatado: " + balance);
 
-        return resultado;
+        return result;
     }
 
 }

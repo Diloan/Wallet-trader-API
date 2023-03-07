@@ -17,13 +17,13 @@ public class InstrumentQuoteController {
     private InstrumentQuoteServices instrumentQuoteServices;
 
     @GetMapping
-    public ResponseEntity<List<InstrumentQuoteDTO>> listarInstruments(@RequestParam(value = "data1") String data1, @RequestParam(value = "data2") String data2) {
-        return ResponseEntity.ok(instrumentQuoteServices.listarInstruments(LocalDate.parse(data1), LocalDate.parse(data2)));
+    public ResponseEntity<List<InstrumentQuoteDTO>> listInstruments(@RequestParam(value = "data1") String data1, @RequestParam(value = "data2") String data2) {
+        return ResponseEntity.ok(instrumentQuoteServices.listInstruments(LocalDate.parse(data1), LocalDate.parse(data2)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InstrumentQuoteDTO> detalharInstrument(@PathVariable Long id) {
-        return ResponseEntity.ok(instrumentQuoteServices.detalharInstrument(id));
+    public ResponseEntity<InstrumentQuoteDTO> getInstrumentDetails(@PathVariable Long id) {
+        return ResponseEntity.ok(instrumentQuoteServices.getInstrumentDetails(id));
     }
 
 }
