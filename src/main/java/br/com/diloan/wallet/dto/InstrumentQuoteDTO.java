@@ -1,9 +1,7 @@
-package br.com.diloan.wallet.controller.dto;
+package br.com.diloan.wallet.dto;
 
-import br.com.diloan.wallet.model.bussness.InstrumentQuote;
+import br.com.diloan.wallet.model.InstrumentQuote;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,12 +1,12 @@
-package br.com.diloan.wallet.controller.service;
+package br.com.diloan.wallet.service;
 
 
-import br.com.diloan.wallet.controller.dto.InstrumentQuoteDTO;
-import br.com.diloan.wallet.controller.dto.UserTradeDTO;
-import br.com.diloan.wallet.model.bussness.InstrumentQuote;
-import br.com.diloan.wallet.model.bussness.UserTrade;
-import br.com.diloan.wallet.model.repository.InstrumentQuoteRepository;
-import br.com.diloan.wallet.model.repository.UserTradeRepository;
+import br.com.diloan.wallet.dto.InstrumentQuoteDTO;
+import br.com.diloan.wallet.dto.UserTradeDTO;
+import br.com.diloan.wallet.model.InstrumentQuote;
+import br.com.diloan.wallet.model.UserTrade;
+import br.com.diloan.wallet.repository.InstrumentQuoteRepository;
+import br.com.diloan.wallet.repository.UserTradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;

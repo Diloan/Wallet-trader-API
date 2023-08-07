@@ -1,7 +1,7 @@
 package br.com.diloan.wallet.controller;
 
-import br.com.diloan.wallet.controller.dto.UserTradeDTO;
-import br.com.diloan.wallet.controller.service.UserTradeServices;
+import br.com.diloan.wallet.dto.UserTradeDTO;
+import br.com.diloan.wallet.service.UserTradeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

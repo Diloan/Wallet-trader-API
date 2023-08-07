@@ -1,6 +1,6 @@
-package br.com.diloan.wallet.controller.dto;
+package br.com.diloan.wallet.dto;
 
-import br.com.diloan.wallet.model.bussness.UserTrade;
+import br.com.diloan.wallet.model.UserTrade;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,4 +1,4 @@
-package br.com.diloan.wallet.model.bussness;
+package br.com.diloan.wallet.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

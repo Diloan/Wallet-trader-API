@@ -1,7 +1,6 @@
-package br.com.diloan.wallet.model.repository;
+package br.com.diloan.wallet.repository;
 
-import br.com.diloan.wallet.model.bussness.InstrumentQuote;
-import br.com.diloan.wallet.model.bussness.UserTrade;
+import br.com.diloan.wallet.model.InstrumentQuote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

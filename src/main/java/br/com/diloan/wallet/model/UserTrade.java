@@ -1,4 +1,4 @@
-package br.com.diloan.wallet.model.bussness;
+package br.com.diloan.wallet.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
